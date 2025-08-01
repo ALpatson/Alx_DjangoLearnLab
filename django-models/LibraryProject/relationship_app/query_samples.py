@@ -2,15 +2,15 @@
 
 from relationship_app.models import Author, Book, Library, Librarian
 
-# 1. Query all books by a specific author
+# 1. Query all books by a specific author (using filter)
 def get_books_by_author(author_name):
     try:
         author = Author.objects.get(name=author_name)
-        return author.books.all()
+        return Book.objects.filter(author=author)
     except Author.DoesNotExist:
         return []
 
-# 2. List all books in a library
+# 2. List all books in a library (still valid)
 def get_books_in_library(library_name):
     try:
         library = Library.objects.get(name=library_name)
@@ -22,6 +22,6 @@ def get_books_in_library(library_name):
 def get_librarian_for_library(library_name):
     try:
         library = Library.objects.get(name=library_name)
-        return library.librarian  # because it's a OneToOneField
+        return library.librarian  # still a OneToOneField
     except (Library.DoesNotExist, Librarian.DoesNotExist):
         return None
