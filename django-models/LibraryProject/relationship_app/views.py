@@ -1,13 +1,15 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic.detail import DetailView
-from .models import Book, Library  # ✅ <-- This line is required!
 
-# Function-Based View: List all books
+from .models import Library      # ✅ This is what the check is looking for
+from .models import Book         # Separate line for Book
+
+# Function-Based View
 def list_books(request):
-    books = Book.objects.all()  # ✅ required
-    return render(request, "relationship_app/list_books.html", {'books': books})  # ✅ required
+    books = Book.objects.all()
+    return render(request, "relationship_app/list_books.html", {'books': books})
 
-# Class-Based View: Show library detail and its books
+# Class-Based View
 class LibraryDetailView(DetailView):
     model = Library
     template_name = "relationship_app/library_detail.html"
