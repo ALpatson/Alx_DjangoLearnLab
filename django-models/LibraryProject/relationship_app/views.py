@@ -2,11 +2,11 @@ from django.shortcuts import render, get_object_or_404
 from django.views.generic.detail import DetailView
 
 from .models import Library      # ✅ This is what the check is looking for
-from .models import Book         # Separate line for Book
+from .models import Book    
+# Separate line for Book
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout
 from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
 
 # Function-Based View
 def list_books(request):
@@ -45,6 +45,6 @@ def login_view(request):
     return render(request, 'relationship_app/login.html', {'form': form})
 
 # Logout View
-def logout_view(request):
-    logout(request)
-    return render(request, 'relationship_app/logout.html')
+# def logout_view(request):
+#     logout(request)
+#     return render(request, 'relationship_app/logout.html')
