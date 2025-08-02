@@ -14,8 +14,10 @@ urlpatterns = [
     path('login/', LoginView.as_view(template_name='relationship_app/login.html'), name='login'),
     path('logout/', LogoutView.as_view(template_name='relationship_app/logout.html'), name='logout'),
     
-    path('books/add/', views.add_book, name='add_book'),
-    path('books/<int:book_id>/edit/', views.edit_book, name='edit_book'),
-    path('books/<int:book_id>/delete/', views.delete_book, name='delete_book'),
+    path('', views.book_list, name='book_list'),
+    path('add_book/', views.add_book, name='add_book'),       # ✅ Ensure this exists
+    path('edit_book/<int:book_id>/', views.edit_book, name='edit_book'),  # ✅ Ensure this exists
+    path('delete_book/<int:book_id>/', views.delete_book, name='delete_book'),  # Optional
+
     # Include other routes like list or detail if you have them
 ]
