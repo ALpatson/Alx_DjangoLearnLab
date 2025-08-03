@@ -1,11 +1,23 @@
-<h2>Contact Form</h2>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Submit Example Form</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+  </head>
+  <body>
+    <h2>Submit Your Info</h2>
 
-<form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Submit</button>
-</form>
+    {% if success %}
+    <div style="color: green">
+      Form submitted successfully! Hello, {{ name }}.
+    </div>
+    {% endif %}
 
-{% if success %}
-  <p>Thank you, {{ name }}! Your message was submitted securely.</p>
-{% endif %}
+    <form method="POST" novalidate>
+      {% csrf_token %} {{ form.as_p }}
+      <button type="submit">Submit</button>
+    </form>
+  </body>
+</html>
