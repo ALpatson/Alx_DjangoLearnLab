@@ -1,4 +1,11 @@
+<h2>Contact Form</h2>
+
 <form method="POST">
-  {% csrf_token %} {{ form.as_p }}
-  <button type="submit">Submit</button>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit</button>
 </form>
+
+{% if success %}
+  <p>Thank you, {{ name }}! Your message was submitted securely.</p>
+{% endif %}
