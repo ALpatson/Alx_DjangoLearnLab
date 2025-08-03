@@ -4,16 +4,15 @@ from django.contrib.auth.models import BaseUserManager
 from django.utils.translation import gettext_lazy as _
 from django.conf import settings
 # Create your models here.
-from django.contrib.auth.models import AbstractUser
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    role = models.CharField(max_length=20, choices=[('admin', 'Admin'), ('staff', 'Staff'), ('user', 'User')])
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='relationship_profile')
 
-class CustomUser(AbstractUser):
-    date_of_birth = models.DateField(null=True, blank=True)
-    profile_photo = models.ImageField(upload_to='profile_photos/', null=True, blank=True)
+    role = models.CharField(max_length=50)
 
+    def __str__(self):
+        return f"{self.user.username} - {self.role}"
+    
 class Author(models.Model):
     name = models.CharField(max_length=100)
 

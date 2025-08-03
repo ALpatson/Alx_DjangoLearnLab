@@ -29,7 +29,9 @@ ALLOWED_HOSTS = []
 
 # Custom user model
 # Ensure you have created a CustomUser model in your app
-AUTH_USER_MODEL = 'bookshelf.CustomUser'
+
+
+
 
 
 
@@ -47,6 +49,8 @@ INSTALLED_APPS = [
     'bookshelf',
     'relationship_app',  # Your app
 ]
+
+AUTH_USER_MODEL = 'bookshelf.CustomUser'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
