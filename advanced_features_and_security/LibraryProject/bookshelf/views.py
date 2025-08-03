@@ -4,6 +4,9 @@ from .models import Book
 from .forms import ExampleForm
 
 from django.db.models import Q
+from django.http import HttpResponseForbidden
+from django.core.exceptions import PermissionDenied
+
 
 def book_list(request):
     query = request.GET.get('q', '')
@@ -24,3 +27,7 @@ def example_form_view(request):
     else:
         form = ExampleForm()
     return render(request, 'bookshelf/form_example.html', {'form': form})
+
+def raise_exception(request):
+    # Example of raising a permission-related exception
+    raise PermissionDenied("You do not have permission to access this resource.")
