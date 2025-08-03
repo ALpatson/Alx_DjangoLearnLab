@@ -1,5 +1,4 @@
 from django.contrib import admin
-from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .models import CustomUser  # Make sure this points to your actual CustomUser
 
@@ -14,15 +13,18 @@ class BookAdmin(admin.ModelAdmin):
 
 class CustomUserAdmin(UserAdmin):
     model = CustomUser
+    list_display = ('username', 'email', 'date_of_birth', 'is_staff')
+    
     fieldsets = UserAdmin.fieldsets + (
-        (None, {'fields': ('date_of_birth', 'profile_photo')}),
+        ('Additional Info', {'fields': ('date_of_birth', 'profile_photo')}),
     )
     add_fieldsets = UserAdmin.add_fieldsets + (
-        (None, {'fields': ('date_of_birth', 'profile_photo')}),
+        ('Additional Info', {'fields': ('date_of_birth', 'profile_photo')}),
     )
 
-# ✅ Add this line to register your custom user model with the admin site
 admin.site.register(CustomUser, CustomUserAdmin)
+
+# ✅ Add this line to register your custom user model with the admin site
 
 
 
