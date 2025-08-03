@@ -23,7 +23,23 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-0jj!-x=v_w*3aix5j0y903qv-_6imt(vk8!328y*dy@_h&!8ve'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
+
+# Protect against MIME type sniffing
+SECURE_CONTENT_TYPE_NOSNIFF = True
+# Enable browser XSS filter
+SECURE_BROWSER_XSS_FILTER = True
+# Prevent clickjacking
+X_FRAME_OPTIONS = 'DENY'
+
+# Ensures cookies are only sent via HTTPS
+# Helps mitigate session hijacking
+# Enforce cookies over HTTPS
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+
+
+
 
 ALLOWED_HOSTS = []
 
@@ -49,6 +65,15 @@ INSTALLED_APPS = [
     'bookshelf',
     'relationship_app',  # Your app
 ]
+
+INSTALLED_APPS += ['csp']
+
+MIDDLEWARE.insert(0, 'csp.middleware.CSPMiddleware')
+
+# Basic CSP rules
+CSP_DEFAULT_SRC = ("'self'",)
+CSP_SCRIPT_SRC = ("'self'", 'https://cdnjs.cloudflare.com')  # Allow only from self/CDN
+CSP_STYLE_SRC = ("'self'", 'https://fonts.googleapis.com')
 
 AUTH_USER_MODEL = 'bookshelf.CustomUser'
 
