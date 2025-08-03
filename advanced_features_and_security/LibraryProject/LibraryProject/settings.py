@@ -32,16 +32,28 @@ SECURE_BROWSER_XSS_FILTER = True
 # Prevent clickjacking
 X_FRAME_OPTIONS = 'DENY'
 
+# SECURITY: Enforce HTTPS in production
+SECURE_SSL_REDIRECT = True  # Redirect all HTTP to HTTPS
+
+# HTTP Strict Transport Security
+SECURE_HSTS_SECONDS = 31536000  # 1 year in seconds
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True  # Include subdomains in HSTS
+SECURE_HSTS_PRELOAD = True  # Allow HSTS preloading in browsers
+
 # Ensures cookies are only sent via HTTPS
 # Helps mitigate session hijacking
 # Enforce cookies over HTTPS
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 
+X_FRAME_OPTIONS = 'DENY'  # Prevent clickjacking by denying framing
+SECURE_CONTENT_TYPE_NOSNIFF = True  # Prevent MIME-type sniffing
+SECURE_BROWSER_XSS_FILTER = True  # Enable the browser's XSS filter
 
 
 
-ALLOWED_HOSTS = []
+
+ALLOWED_HOSTS = ['yourdomain.com', 'www.yourdomain.com']
 
 # Custom user model
 # Ensure you have created a CustomUser model in your app
@@ -66,14 +78,14 @@ INSTALLED_APPS = [
     'relationship_app',  # Your app
 ]
 
-INSTALLED_APPS += ['csp']
+# INSTALLED_APPS += ['csp']
 
-MIDDLEWARE.insert(0, 'csp.middleware.CSPMiddleware')
+# MIDDLEWARE.insert(0, 'csp.middleware.CSPMiddleware')
 
-# Basic CSP rules
-CSP_DEFAULT_SRC = ("'self'",)
-CSP_SCRIPT_SRC = ("'self'", 'https://cdnjs.cloudflare.com')  # Allow only from self/CDN
-CSP_STYLE_SRC = ("'self'", 'https://fonts.googleapis.com')
+# # Basic CSP rules
+# CSP_DEFAULT_SRC = ("'self'",)
+# CSP_SCRIPT_SRC = ("'self'", 'https://cdnjs.cloudflare.com')  # Allow only from self/CDN
+# CSP_STYLE_SRC = ("'self'", 'https://fonts.googleapis.com')
 
 AUTH_USER_MODEL = 'bookshelf.CustomUser'
 
