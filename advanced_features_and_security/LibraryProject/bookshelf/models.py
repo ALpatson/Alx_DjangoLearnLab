@@ -7,10 +7,6 @@ from django.utils.translation import gettext_lazy as _
 from django.conf import settings
 # Create your models here.
 from django.contrib.auth.models import AbstractUser
-from django.contrib.auth.admin import UserAdmin
-
-from advanced_features_and_security.LibraryProject.bookshelf import admin
-from .models import CustomUser
 # Create your models here.
 
 class Book(models.Model):
@@ -30,17 +26,6 @@ class CustomUser(AbstractUser):
     date_of_birth = models.DateField(null=True, blank=True)
     profile_photo = models.ImageField(upload_to='profile_photos/', null=True, blank=True)
 
-class CustomUserAdmin(UserAdmin):
-    model = CustomUser
-    fieldsets = UserAdmin.fieldsets + (
-        (None, {'fields': ('date_of_birth', 'profile_photo')}),
-    )
-    add_fieldsets = UserAdmin.add_fieldsets + (
-        (None, {'fields': ('date_of_birth', 'profile_photo')}),
-    )
-
-# ✅ THIS IS WHAT YOU'RE MISSING:
-admin.site.register(CustomUser, CustomUserAdmin)
 # class CustomUserManager(BaseUserManager):
 #     def create_user(self, username, email, password=None, **extra_fields):
 #         if not email:
